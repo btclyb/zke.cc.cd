@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex Chen — 独立开发者</title>
+<meta name="description" content="Alex Chen 的个人主页：做产品，写代码，偶尔写字。">
+<meta name="theme-color" content="#e9edf2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1626" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Alex Chen — 独立开发者">
+<meta property="og:description" content="做产品，写代码，偶尔写字。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%232b4bff'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e9edf2; --ink:#1b2433; --muted:#5b6779; --line:#c9d3e3; --accent:#2b4bff;
+  --font:"Bricolage Grotesque","PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0f1626; --ink:#e6ecf5; --muted:#8e9bb3; --line:#25314a; --accent:#8da0ff}
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1.0625rem;line-height:1.7;
+  -webkit-font-smoothing:antialiased;padding:clamp(1.25rem,5vw,4rem)}
+a{color:inherit;text-decoration-color:var(--line);text-decoration-thickness:2px;text-underline-offset:.25em;transition:text-decoration-color .2s,color .2s}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+main{max-width:56rem;margin:0 auto}
+
+/* hero */
+.hero{min-height:62vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(2rem,6vw,4rem)}
+h1{font-size:clamp(3.4rem,15vw,10.5rem);line-height:.92;letter-spacing:-.035em;font-weight:300;
+  font-optical-sizing:auto;cursor:default;user-select:none;margin-left:-.04em}
+h1 span{display:inline-block;white-space:pre;will-change:font-variation-settings}
+.tag{margin-top:1.5rem;font-size:clamp(1.1rem,2.4vw,1.4rem);color:var(--muted);max-width:30ch;line-height:1.5}
+.tag b{color:var(--ink);font-weight:500}
+
+/* sections: label on the left, content on the right */
+section{display:grid;grid-template-columns:9rem 1fr;gap:1rem 2rem;padding:2rem 0;border-top:1px solid var(--line)}
+h2{font-size:1rem;font-weight:500;color:var(--muted);padding-top:.15rem}
+.body>p{max-width:38rem}
+.body>p+p{margin-top:1em}
+
+.rows{list-style:none;padding:0}
+.rows li+li{margin-top:.25rem}
+.rows a,.rows .row{display:grid;grid-template-columns:1fr auto;gap:.25rem 1.5rem;padding:.7rem 0;text-decoration:none;
+  border-bottom:1px solid var(--line)}
+.rows a:hover{color:var(--ink)}
+.rows a:hover .t{color:var(--accent)}
+.t{font-weight:500;transition:color .2s}
+.d{color:var(--muted);grid-column:1}
+.m{color:var(--muted);font-size:.9rem;grid-row:1;grid-column:2;align-self:center}
+
+footer{margin-top:1rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+@media (max-width:40rem){
+  section{grid-template-columns:1fr;gap:.25rem}
+  .m{grid-row:auto;grid-column:1}
+  .rows a,.rows .row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main>
+
+  <header class="hero">
+    <h1 id="name" data-text="Alex Chen" aria-label="Alex Chen"></h1>
+    <p class="tag"><b>独立开发者。</b>做小而好用的产品，写代码，偶尔写字。</p>
+  </header>
+
+  <section>
+    <h2>关于</h2>
+    <div class="body">
+      <p>我是 Alex，常驻上海。写了八年软件，从大公司后端做到一个人做完一整个产品。</p>
+      <p>我喜欢把复杂的事情做简单，比起功能多，更在意第一次打开时能不能立刻用起来。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>正在做</h2>
+    <div class="body">
+      <ul class="rows">
+        <li><div class="row"><span class="t">一款离线优先的笔记应用</span><span class="d">用 Rust 和 SQLite，目标是打开即用。</span><span class="m">进行中</span></div></li>
+        <li><div class="row"><span class="t">每月一篇的技术随笔</span><span class="d">记录踩过的坑和想明白的事。</span><span class="m">持续更新</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>作品</h2>
+    <div class="body">
+      <ul class="rows">
+        <li><a href="https://github.com/your-name/project-one"><span class="t">Project One</span><span class="d">一个命令行工具，把截图整理成可搜索的文本。</span><span class="m">2025</span></a></li>
+        <li><a href="https://github.com/your-name/project-two"><span class="t">Project Two</span><span class="d">轻量的静态站点生成器，零配置。</span><span class="m">2024</span></a></li>
+        <li><a href="https://github.com/your-name/project-three"><span class="t">Project Three</span><span class="d">给团队用的内部看板，后来开源了。</span><span class="m">2022</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>联系</h2>
+    <div class="body">
+      <p>想合作或只是聊聊，发邮件给我：<a href="mailto:hi@example.com">hi@example.com</a></p>
+      <p><a href="https://github.com/your-name">GitHub</a>　<a href="https://x.com/your-name">X</a>　<a href="https://www.linkedin.com/in/your-name">LinkedIn</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="y"></span> Alex Chen</span>
+    <span>用 Cloudflare Pages 托管</span>
+  </footer>
+
+</main>
+
+<script>
+(() => {
+  const h = document.getElementById('name');
+  const text = h.dataset.text;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const spans = [...text].map(ch => {
+    const s = document.createElement('span');
+    s.textContent = ch; s.setAttribute('aria-hidden', 'true');
+    h.appendChild(s); return s;
+  });
+  const n = spans.length;
+  const cur = new Array(n).fill(0), tgt = new Array(n).fill(0);
+  let mx = -9999, my = -9999, raf = 0, t0 = performance.now(), intro = !reduce;
+  const apply = (s, t) => {
+    s.style.fontVariationSettings = `"wght" ${Math.round(300 + t * 500)}, "wdth" ${Math.round(100 - t * 25)}`;
+  };
+  const bump = x => Math.max(0, 1 - Math.abs(x) / 1.6);
+
+  function tick(now) {
+    const el = now - t0;
+    if (intro && el > 1800) intro = false;
+    let moving = intro;
+    spans.forEach((s, i) => {
+      if (intro) {
+        tgt[i] = bump((el / 1800) * (n + 3) - 1.5 - i);
+      } else {
+        const r = s.getBoundingClientRect();
+        const d = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
+        tgt[i] = Math.max(0, 1 - d / 240);
+      }
+      const diff = tgt[i] - cur[i];
+      if (Math.abs(diff) > 0.003) { cur[i] += diff * 0.16; moving = true; apply(s, cur[i]); }
+    });
+    raf = moving ? requestAnimationFrame(tick) : 0;
+  }
+  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+
+  if (reduce) { spans.forEach(s => apply(s, 0.4)); }
+  else {
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; kick(); }, { passive: true });
+    addEventListener('pointerleave', () => { mx = my = -9999; kick(); });
+    kick();
+  }
+  document.getElementById('y').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
