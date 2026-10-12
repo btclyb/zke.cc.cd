@@ -10,14 +10,15 @@
 <meta property="og:title" content="Liu Yb — 美股与加密货币">
 <meta property="og:description" content="美股与加密货币的研究笔记与思考。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='14' y='14' width='72' height='72' rx='6' fill='%23c4402f'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/noto-serif-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:"Noto Serif Local";src:url("/fonts/noto-serif-latin-wght.woff2") format("woff2");
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+20AC,U+2212}
 :root{
   --bg:#f3efe6; --ink:#26231f; --muted:#7a746a; --line:#d8d1c2; --accent:#c4402f;
   --up:#3f7a55; --down:#b6453b; --grain:.5;
-  --font:"Noto Serif JP","Songti SC","Source Han Serif SC","SimSun",serif;
+  --font:"Noto Serif Local","Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","Hiragino Mincho ProN","Yu Mincho","SimSun",serif;
 }
 @media (prefers-color-scheme:dark){
   :root{--bg:#1c1a17; --ink:#e8e2d4; --muted:#968f82; --line:#38342d; --accent:#e0654f;
@@ -103,8 +104,8 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
   <section>
     <h2>关于</h2>
     <div class="body">
-      <p>我是 Liu Yb，主要做美股和加密货币。这里放我的研究笔记、复盘和一些想明白的事。</p>
-      <p>我更看重风险控制和长期复利，而不是追逐短期涨跌。写下来，是为了让自己的判断经得起回头检验。</p>
+      <p>美股与Crypto玩家。</p>
+      <p>记录研究、复盘和我的交易纪律。</p>
     </div>
   </section>
 
@@ -125,9 +126,9 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
     <h2>笔记</h2>
     <div class="body">
       <ul class="rows">
-        <li><a href="#"><span class="t">我是怎么给一只股票做研究的</span><span class="d">从财报到估值，我的检查清单。</span><span class="m">2026</span></a></li>
-        <li><a href="#"><span class="t">一次加密货币复盘</span><span class="d">哪些判断对了，哪些只是运气。</span><span class="m">2026</span></a></li>
-        <li><a href="#"><span class="t">为什么我给每笔交易写理由</span><span class="d">事前写下逻辑，事后才能复盘。</span><span class="m">2025</span></a></li>
+        <li><a href="#"><span class="t">日常</span><span class="d">---。</span><span class="m">2026</span></a></li>
+        <li><a href="#"><span class="t">推荐</span><span class="d">---。</span><span class="m">2026</span></a></li>
+        <li><a href="#"><span class="t">复盘</span><span class="d">---。</span><span class="m">2026</span></a></li>
       </ul>
     </div>
   </section>
@@ -135,7 +136,7 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
   <section>
     <h2>联系</h2>
     <div class="body">
-      <p>想交流市场或研究方法，欢迎来信：<a href="mailto:i@zk.cc.cd">i@zk.cc.cd</a></p>
+      <p>欢迎来信：<a href="mailto:i@zk.cc.cd">i@zk.cc.cd</a></p>
     </div>
   </section>
 
