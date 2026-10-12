@@ -11,83 +11,7 @@
 <meta property="og:description" content="美股与加密货币的研究笔记与思考。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='14' y='14' width='72' height='72' rx='6' fill='%23c4402f'/></svg>">
 <link rel="preload" href="/fonts/noto-serif-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-@font-face{font-family:"Noto Serif Local";src:url("/fonts/noto-serif-latin-wght.woff2") format("woff2");
-  font-weight:100 900;font-style:normal;font-display:swap;
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+20AC,U+2212}
-:root{
-  --bg:#f3efe6; --ink:#26231f; --muted:#7a746a; --line:#d8d1c2; --accent:#c4402f;
-  --up:#3f7a55; --down:#b6453b; --grain:.5;
-  --font:"Noto Serif Local","Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","Hiragino Mincho ProN","Yu Mincho","SimSun",serif;
-}
-@media (prefers-color-scheme:dark){
-  :root{--bg:#1c1a17; --ink:#e8e2d4; --muted:#968f82; --line:#38342d; --accent:#e0654f;
-    --up:#8fc09a; --down:#e08a7e; --grain:.12}
-}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.95;letter-spacing:.04em;
-  -webkit-font-smoothing:antialiased;padding:clamp(1.5rem,6vw,5rem)}
-/* 和紙のような紙の質感 */
-body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:var(--grain);mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .33  0 0 0 .45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-::selection{background:var(--accent);color:var(--bg)}
-a{color:inherit;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.4em;transition:color .3s,text-decoration-color .3s}
-a:hover{color:var(--accent);text-decoration-color:var(--accent)}
-:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
-main{max-width:54rem;margin:0 auto;position:relative;counter-reset:sec}
-
-/* hero：大面积留白(間)，竖排文字，朱印 */
-.hero{position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(3rem,8vw,6rem)}
-h1{font-size:clamp(3.2rem,13vw,9rem);line-height:1;letter-spacing:-.02em;font-weight:200;
-  cursor:default;user-select:none;margin-left:-.04em}
-h1 span{display:inline-block;white-space:pre;will-change:font-variation-settings}
-.tag{margin-top:2rem;color:var(--muted);line-height:1.8}
-.tag b{display:block;color:var(--ink);font-weight:500;letter-spacing:.12em}
-.tag .dim{display:block;margin-top:.2rem;font-size:.95rem;letter-spacing:.14em}
-.vert{position:absolute;right:0;top:0;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
-.vert p{writing-mode:vertical-rl;letter-spacing:.6em;color:var(--muted);font-size:.95rem}
-.hanko{display:grid;place-items:center;width:2.9rem;height:2.9rem;background:var(--accent);color:var(--bg);
-  font-size:1.6rem;font-weight:700;line-height:1;border-radius:3px;transform:rotate(-4deg);letter-spacing:0}
-
-/* sections */
-section{counter-increment:sec;display:grid;grid-template-columns:8rem 1fr;gap:1rem 2rem;padding:3rem 0;border-top:1px solid var(--line)}
-h2{font-size:1rem;font-weight:500;letter-spacing:.2em}
-h2::before{content:counter(sec,cjk-decimal);display:block;color:var(--accent);font-size:.8rem;margin-bottom:.15rem}
-.body>p{max-width:34rem}
-.body>p+p{margin-top:1.2em}
-
-.rows{list-style:none;padding:0}
-.rows a,.rows .row{display:grid;grid-template-columns:1fr auto;gap:.1rem 1.5rem;padding:1rem 0;text-decoration:none;border-bottom:1px solid var(--line)}
-.rows li:last-child>*{border-bottom:0}
-.rows a:hover{color:var(--ink)}
-.rows a:hover .t{color:var(--accent)}
-.t{font-weight:500;transition:color .3s}
-.d{color:var(--muted);font-size:.92rem;grid-column:1}
-.m{color:var(--muted);font-size:.85rem;grid-row:1;grid-column:2;align-self:center}
-
-/* quotes */
-.q{display:grid;grid-template-columns:1fr 6.5rem 7rem;align-items:center;gap:.75rem 1.25rem;padding:1rem 0;border-bottom:1px solid var(--line)}
-.rows li:last-child>.q{border-bottom:0}
-.q .d{display:block}
-.spark{width:100%;height:2rem;overflow:visible;color:var(--muted)}
-.spark polyline{fill:none;stroke:currentColor;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
-.px{text-align:right;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.px .p{display:block;font-weight:500}
-.px .c{font-size:.88rem;color:var(--muted)}
-.q.up .spark,.q.up .c{color:var(--up)}
-.q.down .spark,.q.down .c{color:var(--down)}
-.note{margin-top:.75rem;font-size:.82rem;color:var(--muted)}
-
-footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-
-@media (max-width:40rem){
-  section{grid-template-columns:1fr;gap:.5rem;padding:2.25rem 0}
-  .rows a,.rows .row{grid-template-columns:1fr}
-  .m{grid-row:auto;grid-column:1}
-  .q{grid-template-columns:1fr 4.5rem 6rem;gap:.5rem .75rem}
-}
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <main>
@@ -104,7 +28,7 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
   <section>
     <h2>关于</h2>
     <div class="body">
-      <p>美股与Crypto玩家。拿过一些空投，买过一些token。</p>
+      <p>美股与Crypto玩家。</p>
       <p>记录研究、复盘和我的交易纪律。</p>
     </div>
   </section>
@@ -125,11 +49,7 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
   <section>
     <h2>笔记</h2>
     <div class="body">
-      <ul class="rows">
-        <li><a href="#"><span class="t">日常</span><span class="d">---。</span><span class="m">2026</span></a></li>
-        <li><a href="#"><span class="t">推荐</span><span class="d">---。</span><span class="m">2026</span></a></li>
-        <li><a href="#"><span class="t">复盘</span><span class="d">---。</span><span class="m">2026</span></a></li>
-      </ul>
+      <ul class="rows" id="notes"></ul>
     </div>
   </section>
 
@@ -234,6 +154,30 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
   }
   load();
   setInterval(load, 60000);
+})();
+</script>
+<script>
+(async () => {
+  const ul = document.getElementById('notes');
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
+  try {
+    const r = await fetch('/notes/index.json');
+    if (!r.ok) throw 0;
+    const list = (await r.json()).filter(n => !n.draft)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    if (!list.length) throw 0;
+    for (const n of list) {
+      const li = document.createElement('li'), a = document.createElement('a');
+      a.href = '/note?p=' + encodeURIComponent(n.slug);
+      a.append(el('span', 't', n.title), el('span', 'd', n.summary || ''), el('span', 'm', String(n.date).replaceAll('-', '.')));
+      li.appendChild(a); ul.appendChild(li);
+    }
+  } catch (e) {
+    const li = document.createElement('li');
+    const row = document.createElement('div'); row.className = 'row';
+    row.append(el('span', 't', '还没有笔记'), el('span', 'd', '第一篇正在路上。'));
+    li.appendChild(row); ul.appendChild(li);
+  }
 })();
 </script>
 </body>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>笔记 — Liu Yb</title>
+<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1a17" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='14' y='14' width='72' height='72' rx='6' fill='%23c4402f'/></svg>">
+<link rel="preload" href="/fonts/noto-serif-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <header class="post-head">
+    <a class="back" href="/">← Liu Yb</a>
+    <h1 class="post-title" id="title">　</h1>
+    <p class="post-meta" id="meta"></p>
+  </header>
+
+  <article class="prose" id="content"><noscript>需要开启 JavaScript 才能阅读这篇笔记。</noscript></article>
+
+  <footer>
+    <span>© <span id="y"></span> Liu Yb</span>
+    <span>内容仅为个人记录，不构成投资建议。投资有风险。</span>
+  </footer>
+</main>
+
+<script src="/vendor/marked.umd.js"></script>
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  $('y').textContent = new Date().getFullYear();
+  const slug = new URLSearchParams(location.search).get('p') || '';
+
+  function fail(msg) {
+    document.title = '找不到笔记 — Liu Yb';
+    $('title').textContent = '找不到这篇笔记';
+    $('content').textContent = msg;
+  }
+  if (!/^[\w-]+$/.test(slug)) return fail('链接不正确，请从首页进入。');
+
+  try {
+    const [idx, md] = await Promise.all([
+      fetch('/notes/index.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch(`/notes/${slug}.md`).then(r => { if (!r.ok) throw 0; return r.text(); })
+    ]);
+    const info = idx.find(n => n.slug === slug) || {};
+    const body = md.replace(/^\s*#\s+.*\n/, '');           // 正文第一行如果是 # 标题，就去掉，避免和页面标题重复
+    const title = info.title || (md.match(/^\s*#\s+(.*)/) || [])[1] || slug;
+
+    document.title = `${title} — Liu Yb`;
+    $('title').textContent = title;
+    $('meta').textContent = info.date ? String(info.date).replaceAll('-', '.') : '';
+    marked.setOptions({ gfm: true, breaks: true });
+    $('content').innerHTML = marked.parse(body);
+    $('content').querySelectorAll('a[href^="http"]').forEach(a => {
+      if (a.hostname !== location.hostname) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+    });
+  } catch (e) {
+    fail('这篇笔记不存在，或者还没部署完成。');
+  }
+})();
+</script>
+</body>
+</html>
