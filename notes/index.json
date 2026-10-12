@@ -4,11 +4,11 @@
     "title": "交易复盘模板",
     "date": "2026-10-13",
     "summary": "示例笔记：我打算怎么给每笔交易写复盘。可以直接删掉或改写。"
-  }
-{
-  "slug": "nvda-earnings",
-  "title": "NVDA 财报复盘",
-  "date": "2026-10-20",
-  "summary": "一句话摘要。"
-}
+  },
+     {
+       "slug": "nvda-earnings",
+       "title": "NVDA 财报复盘",
+       "date": "2026-10-20",
+       "summary": "一句话摘要，显示在列表里。"
+     }
 ]
