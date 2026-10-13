@@ -1,6 +1,6 @@
 # 静观其变与长期复利：从跨市场宏观锚点到 Token 投研与空投赔率精算
 
-> **作者**：[Liu Yb](https://www.google.com/search?q=https%3A%2F%2Fzk.cc.cd%2F) ｜ **板块**：三、笔记 ｜ **日期**：2026-10-13 ｜ **标签**：跨市场复盘 · DePIN 与物理 AI · 空投精算 · 交易纪律
+> **作者**：[Liu Yb](https://www.google.com/search?q=https%3A%2F%2Fzk.cc.cd%2F)
 
 搭建个人站 [Liu Yb (zk.cc.cd)](https://www.google.com/search?q=https%3A%2F%2Fzk.cc.cd%2F) 的初衷，是在喧嚣的 K 线与碎片化的叙事之外，留出一块安静的自留地。正如我在简介中所写：“美股与 Crypto 玩家。买过一些 Token，拿过一些空投。记录研究、复盘和我的交易纪律。”
 
