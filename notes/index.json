@@ -1,4 +1,10 @@
 [
+{
+    "slug": "risk-first",
+    "title": "先算亏损，再定仓位",
+    "date": "2026-10-14",
+    "summary": "用止损距离倒推仓位，把风险放在收益前面。"
+  },
   {
        "slug": "nvda-earnings",
        "title": "模版",
