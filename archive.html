@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全部笔记 — Liu Yb</title>
+<meta name="description" content="Liu Yb 的全部笔记。">
+<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1a17" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='14' y='14' width='72' height='72' rx='6' fill='%23c4402f'/></svg>">
+<link rel="preload" href="/fonts/noto-serif-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <header class="post-head">
+    <a class="back" href="/">← Liu Yb</a>
+    <h1 class="post-title">全部笔记</h1>
+    <p class="post-meta" id="count"></p>
+  </header>
+
+  <div id="list"><noscript>需要开启 JavaScript 才能查看笔记列表。</noscript></div>
+
+  <footer>
+    <span>© <span id="y"></span> Liu Yb</span>
+    <span>内容仅为个人记录，不构成投资建议。投资有风险。</span>
+  </footer>
+</main>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  $('y').textContent = new Date().getFullYear();
+  const box = $('list');
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
+  try {
+    const r = await fetch('/notes/index.json');
+    if (!r.ok) throw 0;
+    const list = (await r.json()).filter(n => !n.draft)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    if (!list.length) throw 0;
+    $('count').textContent = `共 ${list.length} 篇`;
+
+    let year = '', ul = null;
+    for (const n of list) {
+      const y = String(n.date).slice(0, 4);
+      if (y !== year) {                       // 按年份分组
+        year = y;
+        box.appendChild(el('h2', 'year', y));
+        ul = document.createElement('ul'); ul.className = 'rows';
+        box.appendChild(ul);
+      }
+      const li = document.createElement('li'), a = document.createElement('a');
+      a.href = '/note?p=' + encodeURIComponent(n.slug);
+      a.append(el('span', 't', n.title), el('span', 'd', n.summary || ''), el('span', 'm', String(n.date).slice(5).replace('-', '.')));
+      li.appendChild(a); ul.appendChild(li);
+    }
+  } catch (e) {
+    box.textContent = '还没有笔记，或者列表暂时加载不出来。';
+  }
+})();
+</script>
+</body>
+</html>

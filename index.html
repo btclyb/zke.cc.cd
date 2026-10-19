@@ -28,7 +28,7 @@
   <section>
     <h2>关于</h2>
     <div class="body">
-      <p>美股与Crypto玩家。买过一些Token，拿过一些空投。</p>
+      <p>美股与Crypto玩家。</p>
       <p>记录研究、复盘和我的交易纪律。</p>
     </div>
   </section>
@@ -50,6 +50,7 @@
     <h2>笔记</h2>
     <div class="body">
       <ul class="rows" id="notes"></ul>
+      <p class="more" id="more" hidden><a href="/archive"></a></p>
     </div>
   </section>
 
@@ -166,11 +167,17 @@
     const list = (await r.json()).filter(n => !n.draft)
       .sort((a, b) => String(b.date).localeCompare(String(a.date)));
     if (!list.length) throw 0;
-    for (const n of list) {
+    const LIMIT = 5;
+    for (const n of list.slice(0, LIMIT)) {
       const li = document.createElement('li'), a = document.createElement('a');
       a.href = '/note?p=' + encodeURIComponent(n.slug);
       a.append(el('span', 't', n.title), el('span', 'd', n.summary || ''), el('span', 'm', String(n.date).replaceAll('-', '.')));
       li.appendChild(a); ul.appendChild(li);
+    }
+    if (list.length > LIMIT) {
+      const more = document.getElementById('more');
+      more.firstElementChild.textContent = `全部笔记（共 ${list.length} 篇）→`;
+      more.hidden = false;
     }
   } catch (e) {
     const li = document.createElement('li');

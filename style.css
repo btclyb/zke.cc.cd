@@ -97,3 +97,9 @@ footer{padding-top:2rem;border-top:1px solid var(--line);color:var(--muted);font
 .prose table{border-collapse:collapse;width:100%;font-size:.92rem;display:block;overflow-x:auto}
 .prose th,.prose td{border-bottom:1px solid var(--line);padding:.5rem .75rem;text-align:left}
 .prose hr{border:0;border-top:1px solid var(--line)}
+
+/* 首页「全部笔记」链接 & 归档页 */
+.more{margin-top:1.25rem;font-size:.95rem;letter-spacing:.1em}
+.year{font-size:1rem;font-weight:500;letter-spacing:.2em;color:var(--accent);margin:2.5rem 0 .25rem}
+.year::before{content:none}
+.year:first-child{margin-top:0}
