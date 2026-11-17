@@ -26,3 +26,7 @@ The existing daily Bitcoin publishing workflow can keep writing the same files a
 - `vendor/marked.umd.js`: existing local Markdown renderer.
 
 Quote labels show the time the site fetched data, not a guaranteed exchange timestamp. Hidden tabs pause periodic refresh. A failed refresh keeps the previous data with an explicit stale-data notice.
+
+## Verification
+
+Open `/tests/markdown.html` on a preview deployment to check unsafe elements, event handlers, URL schemes, external-link isolation and basic formatting in the actual browser DOM. The fixture is discarded after the checks. It is excluded from search indexing.

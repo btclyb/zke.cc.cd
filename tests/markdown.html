@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markdown 安全检查</title>
+<body><h1>Markdown 安全检查</h1><p id="result" role="status">正在检查…</p><div id="fixture" hidden></div><p><a href="/">返回首页</a></p>
+<script type="module">
+import {safeMarkdown,safeURL} from '/assets/markdown.mjs';
+const fixture=document.getElementById('fixture');
+fixture.append(safeMarkdown('<h2>Safe heading</h2><p onclick="window.__unsafe=1">Text <strong>bold</strong></p><script>window.__unsafe=1<'+ '/script><svg onload="window.__unsafe=1"></svg><iframe srcdoc="unsafe"></iframe><a href="javascript:window.__unsafe=1">bad link</a><a href="https://example.com">safe link</a><img src="data:image/svg+xml,bad" onerror="window.__unsafe=1"><table><tr><td>cell</td></tr></table>'));
+const checks=[!fixture.querySelector('script,iframe,svg,img,[onclick],[onerror]'),!fixture.querySelector('a[href^="javascript:"]'),fixture.querySelector('strong')?.textContent==='bold',fixture.querySelector('td')?.textContent==='cell',safeURL('java\nscript:alert(1)')===null,safeURL('data:text/html,bad')===null,!window.__unsafe,fixture.querySelector('a[href="https://example.com/"]')?.rel==='noopener noreferrer'];
+document.getElementById('result').textContent=checks.every(Boolean)?'通过：8 项安全过滤与格式保留检查。':'失败：'+JSON.stringify(checks);
+fixture.remove();
+</script></body></html>
