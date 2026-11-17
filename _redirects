@@ -1,0 +1,5 @@
+/edge https://edgelens.pages.dev/edge/ 302
+/edge/* https://edgelens.pages.dev/edge/:splat 302
+/tools https://edgelens.pages.dev/tools/ 302
+/tools/* https://edgelens.pages.dev/tools/:splat 302
+/edge-api/* https://edgelens.pages.dev/edge-api/:splat 302
