@@ -14,14 +14,16 @@
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<main>
+<a class="skip-link" href="#main">跳到正文</a>
+<main id="main">
 
+  <nav class="site-nav" aria-label="主导航"><a href="#writing">最新笔记</a><a href="/archive">全部笔记 ↗</a><a href="#contact">联系</a></nav>
   <header class="hero">
     <div class="vert" aria-hidden="true">
       <p>静观其变　长期复利</p>
       <span class="hanko">観</span>
     </div>
-    <h1 id="name" data-text="Liu Yb" aria-label="Liu Yb"></h1>
+    <h1 id="name" data-text="Liu Yb" aria-label="Liu Yb">Liu Yb</h1>
     <p class="tag"><b>Digital Nomad</b><span class="dim">Crypto · US Stocks · AI</span></p>
   </header>
 
@@ -42,19 +44,22 @@
         <li><div class="q" data-k="nvda"><div><span class="t">NVDA</span><span class="d">英伟达</span></div><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"></svg><div class="px"><span class="p">—</span><span class="c"></span></div></div></li>
         <li><div class="q" data-k="gold"><div><span class="t">Gold</span><span class="d">黄金</span></div><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"></svg><div class="px"><span class="p">—</span><span class="c"></span></div></div></li>
       </ul>
-      <p class="note" id="qnote">正在加载行情…</p>
+      <p class="note" id="qnote" role="status">正在加载行情…</p>
+      <button class="text-button" id="quotes-retry" type="button" hidden>重试行情</button>
     </div>
   </section>
 
-  <section>
+  <section id="writing">
     <h2>笔记</h2>
     <div class="body">
-      <ul class="rows" id="notes"></ul>
+      <ul class="rows" id="notes" aria-busy="true"><li class="list-state">正在加载笔记…</li></ul>
+      <p class="note" id="notes-state" role="status"></p>
+      <noscript><p><a href="/notes/index.json">查看笔记索引</a>，或启用 JavaScript 浏览文章列表。</p></noscript>
       <p class="more" id="more" hidden><a href="/archive"></a></p>
     </div>
   </section>
 
-  <section>
+  <section id="contact">
     <h2>联系</h2>
     <div class="body">
       <p>欢迎来信：<a href="mailto:i@zk.cc.cd">i@zk.cc.cd</a></p>
@@ -62,130 +67,13 @@
   </section>
 
   <footer>
-    <span>© <span id="y"></span> Liu Yb</span>
+    <span>© <span id="y">2026</span> Liu Yb</span>
     <span>内容仅为个人记录，不构成投资建议。投资有风险。</span>
   </footer>
 
 </main>
 
-<script>
-(() => {
-  const h = document.getElementById('name');
-  const text = h.dataset.text;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const spans = [...text].map(ch => {
-    const s = document.createElement('span');
-    s.textContent = ch; s.setAttribute('aria-hidden', 'true');
-    h.appendChild(s); return s;
-  });
-  const n = spans.length;
-  const cur = new Array(n).fill(0), tgt = new Array(n).fill(0);
-  let mx = -9999, my = -9999, raf = 0, t0 = performance.now(), intro = !reduce;
-  const apply = (s, t) => { s.style.fontVariationSettings = `"wght" ${Math.round(200 + t * 400)}`; };
-  const bump = x => Math.max(0, 1 - Math.abs(x) / 1.6);
-
-  function tick(now) {
-    const el = now - t0;
-    if (intro && el > 2200) intro = false;
-    let moving = intro;
-    spans.forEach((s, i) => {
-      if (intro) tgt[i] = bump((el / 2200) * (n + 3) - 1.5 - i);
-      else {
-        const r = s.getBoundingClientRect();
-        const d = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
-        tgt[i] = Math.max(0, 1 - d / 240);
-      }
-      const diff = tgt[i] - cur[i];
-      if (Math.abs(diff) > 0.003) { cur[i] += diff * 0.12; moving = true; apply(s, cur[i]); }
-    });
-    raf = moving ? requestAnimationFrame(tick) : 0;
-  }
-  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
-
-  if (reduce) spans.forEach(s => apply(s, 0.3));
-  else {
-    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; kick(); }, { passive: true });
-    addEventListener('pointerleave', () => { mx = my = -9999; kick(); });
-    kick();
-  }
-  document.getElementById('y').textContent = new Date().getFullYear();
-})();
-</script>
-<script>
-(() => {
-  const note = document.getElementById('qnote');
-  const rows = document.querySelectorAll('.q');
-  const NS = 'http://www.w3.org/2000/svg';
-
-  function spark(svg, h) {
-    svg.replaceChildren();
-    if (!Array.isArray(h) || h.length < 2) return;
-    const min = Math.min(...h), max = Math.max(...h), span = (max - min) || 1;
-    const pts = h.map((v, i) => `${(i / (h.length - 1) * 120).toFixed(1)},${(30 - (v - min) / span * 28).toFixed(1)}`).join(' ');
-    const pl = document.createElementNS(NS, 'polyline');
-    pl.setAttribute('points', pts);
-    svg.appendChild(pl);
-  }
-
-  function render(data) {
-    rows.forEach(r => {
-      const d = data[r.dataset.k];
-      if (!d) return;
-      const ch = Number(d.change);
-      r.classList.remove('up', 'down');
-      if (ch > 0) r.classList.add('up'); else if (ch < 0) r.classList.add('down');
-      r.querySelector('.p').textContent = d.price;
-      r.querySelector('.c').textContent = (ch > 0 ? '+' : '') + ch.toFixed(2) + '%';
-      spark(r.querySelector('.spark'), d.history);
-    });
-    const t = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-    note.textContent = `更新于 ${t}。数据来自行情接口，仅供参考。`;
-  }
-
-  async function load() {
-    for (const url of ['/api/quotes', 'https://api.zke.cc.cd']) {
-      try {
-        const r = await fetch(url, { cache: 'no-store' });
-        if (!r.ok) continue;
-        render(await r.json());
-        return;
-      } catch (e) { /* 试下一个 */ }
-    }
-    note.textContent = '行情暂时无法加载，稍后刷新重试。';
-  }
-  load();
-  setInterval(load, 60000);
-})();
-</script>
-<script>
-(async () => {
-  const ul = document.getElementById('notes');
-  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
-  try {
-    const r = await fetch('/notes/index.json');
-    if (!r.ok) throw 0;
-    const list = (await r.json()).filter(n => !n.draft)
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    if (!list.length) throw 0;
-    const LIMIT = 5;
-    for (const n of list.slice(0, LIMIT)) {
-      const li = document.createElement('li'), a = document.createElement('a');
-      a.href = '/note?p=' + encodeURIComponent(n.slug);
-      a.append(el('span', 't', n.title), el('span', 'd', n.summary || ''), el('span', 'm', String(n.date).replaceAll('-', '.')));
-      li.appendChild(a); ul.appendChild(li);
-    }
-    if (list.length > LIMIT) {
-      const more = document.getElementById('more');
-      more.firstElementChild.textContent = `全部笔记（共 ${list.length} 篇）→`;
-      more.hidden = false;
-    }
-  } catch (e) {
-    const li = document.createElement('li');
-    const row = document.createElement('div'); row.className = 'row';
-    row.append(el('span', 't', '还没有笔记'), el('span', 'd', '第一篇正在路上。'));
-    li.appendChild(row); ul.appendChild(li);
-  }
-})();
-</script>
+<script type="module" src="/assets/home.mjs"></script>
 </body>
 </html>
+

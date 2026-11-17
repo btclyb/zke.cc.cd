@@ -12,53 +12,28 @@
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<main>
+<a class="skip-link" href="#main">跳到正文</a>
+<main id="main">
   <header class="post-head">
     <a class="back" href="/">← Liu Yb</a>
     <h1 class="post-title">全部笔记</h1>
-    <p class="post-meta" id="count"></p>
+    <p class="post-meta" id="count" role="status">正在加载笔记…</p>
   </header>
 
-  <div id="list"><noscript>需要开启 JavaScript 才能查看笔记列表。</noscript></div>
+  <form class="archive-filters" role="search" id="filters">
+    <div><label for="search">搜索笔记</label><input id="search" name="q" type="search" placeholder="标题、摘要或日期" autocomplete="off"></div>
+    <div><label for="category">内容类型</label><select id="category" name="type"><option value="all">全部内容</option><option value="market">比特币日报</option><option value="notes">研究与随笔</option></select></div>
+    <button class="text-button" type="reset">清除筛选</button>
+  </form>
+  <div id="list" aria-busy="true"><noscript>需要开启 JavaScript 才能查看笔记列表。</noscript></div>
 
   <footer>
-    <span>© <span id="y"></span> Liu Yb</span>
+    <span>© <span id="y">2026</span> Liu Yb</span>
     <span>内容仅为个人记录，不构成投资建议。投资有风险。</span>
   </footer>
 </main>
 
-<script>
-(async () => {
-  const $ = id => document.getElementById(id);
-  $('y').textContent = new Date().getFullYear();
-  const box = $('list');
-  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
-  try {
-    const r = await fetch('/notes/index.json');
-    if (!r.ok) throw 0;
-    const list = (await r.json()).filter(n => !n.draft)
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    if (!list.length) throw 0;
-    $('count').textContent = `共 ${list.length} 篇`;
-
-    let year = '', ul = null;
-    for (const n of list) {
-      const y = String(n.date).slice(0, 4);
-      if (y !== year) {                       // 按年份分组
-        year = y;
-        box.appendChild(el('h2', 'year', y));
-        ul = document.createElement('ul'); ul.className = 'rows';
-        box.appendChild(ul);
-      }
-      const li = document.createElement('li'), a = document.createElement('a');
-      a.href = '/note?p=' + encodeURIComponent(n.slug);
-      a.append(el('span', 't', n.title), el('span', 'd', n.summary || ''), el('span', 'm', String(n.date).slice(5).replace('-', '.')));
-      li.appendChild(a); ul.appendChild(li);
-    }
-  } catch (e) {
-    box.textContent = '还没有笔记，或者列表暂时加载不出来。';
-  }
-})();
-</script>
+<script type="module" src="/assets/archive.mjs"></script>
 </body>
 </html>
+
