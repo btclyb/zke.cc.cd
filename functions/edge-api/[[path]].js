@@ -7,8 +7,9 @@ export async function onRequest(context) {
     const controller = new AbortController();
     const timer = setTimeout(()=>controller.abort(),12000);
     let upstream;
-    try { upstream = await fetch('https://freckle-arid-parrot.abasthan.app'+routes[path],{signal:controller.signal,redirect:'error',headers:{'User-Agent':'EdgeLens dashboard relay'}}); } finally { clearTimeout(timer); }
+    try { upstream = await fetch('https://freckle-arid-parrot.abasthan.app'+routes[path],{signal:controller.signal,redirect:'manual',headers:{'User-Agent':'EdgeLens dashboard relay'}}); } finally { clearTimeout(timer); }
+    if (upstream.status>=300 && upstream.status<400) throw new Error('Upstream redirected');
     const type = path==='addresses'?'text/plain; charset=utf-8':'application/json; charset=utf-8';
     return new Response(context.request.method==='HEAD'?null:upstream.body,{status:upstream.status,headers:{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
-  } catch (err) { return new Response(JSON.stringify({error:'检测实例暂不可达或正在唤醒，请稍后刷新。',reason:String(err.message).slice(0,180)}),{status:503,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}}); }
+  } catch (err) { return new Response(JSON.stringify({error:'检测实例暂不可达或正在唤醒，请稍后刷新。'}),{status:503,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}}); }
 }
