@@ -102,10 +102,11 @@ END_ID=$(network_id) || exit 1
 [ -s "$TMP/speed" ] || { echo "$(date): 没有通过的地址，保留上次结果（查看其时间戳）。"; exit 1; }
 /usr/bin/sort -k3,3nr -k2,2n "$TMP/speed" > "$TMP/ranked"
 /usr/bin/awk '{printf "%s:443#电信本地-%.0fms-%.2fMBps\n",$1,$2,$3/1000000}' "$TMP/ranked" > "$TMP/addresses.txt"
-printf 'IP Address,Port,Average HTTP TTFB ms,Download Speed MB/s,Measured At\n' > "$TMP/result.csv"
 STAMP=$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')
-/usr/bin/awk -v t="$STAMP" '{printf "%s,443,%.1f,%.3f,%s\n",$1,$2,$3/1000000,t}' "$TMP/ranked" >> "$TMP/result.csv"
 /bin/mv "$TMP/addresses.txt" "$APP/addresses.txt"
+/usr/bin/awk -v at="$STAMP" 'BEGIN{printf "{\"version\":1,\"source\":\"mac-local\",\"networkLabel\":\"用户指定电信网络\",\"updatedAt\":\"%s\",\"results\":[",at} {if(NR>1)printf ",";printf "{\"ip\":\"%s\",\"latency\":%.1f,\"downloadMBps\":%.6f,\"downloadBytes\":1048576}",$1,$2,$3/1000000} END{print "]}"}' "$TMP/ranked" > "$TMP/result.json"
+/usr/bin/awk 'BEGIN{print "IP Address,Port,HTTP TTFB ms,Download MB/s"}{printf "%s,443,%.1f,%.6f\n",$1,$2,$3/1000000}' "$TMP/ranked" > "$TMP/result.csv"
+/bin/mv "$TMP/result.json" "$APP/result.json"
 /bin/mv "$TMP/result.csv" "$APP/result.csv"
 printf '%s\n' "$STAMP" > "$APP/updated-at.txt"
 echo "$STAMP: 完成电信本地测速，结果已更新。下载速度来自每个地址一次 1MiB 测试，仅作短样本参考。"
