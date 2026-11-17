@@ -32,11 +32,13 @@ async function load() {
     $('meta').textContent = `${info.date.replaceAll('-', '.')} · 约 ${minutes} 分钟阅读`;
     document.querySelector('meta[name="description"]').content = info.summary || info.title;
     const headings = [...$('content').querySelectorAll('h2, h3')];
-    $('toc-links').replaceChildren();
+    const tocList = element('ol', 'toc-list');
+    $('toc-links').replaceChildren(tocList);
     headings.forEach((heading, i) => {
       heading.id = `section-${i + 1}`;
-      const link = element('a', heading.tagName === 'H3' ? 'toc-sub' : '', heading.textContent);
-      link.href = '#' + heading.id; $('toc-links').append(link);
+      const item = element('li', heading.tagName === 'H3' ? 'toc-sub' : '');
+      const link = element('a', '', heading.textContent);
+      link.href = '#' + heading.id; item.append(link); tocList.append(item);
     });
     $('toc').hidden = headings.length < 2;
     $('neighbors').replaceChildren();
