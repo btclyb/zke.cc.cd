@@ -2,7 +2,7 @@ const SOURCE='https://raw.githubusercontent.com/LancelotRar/best-cf-ips/main/bes
 const CIDRS=['173.245.48.0/20','103.21.244.0/22','103.22.200.0/22','103.31.4.0/22','141.101.64.0/18','108.162.192.0/18','190.93.240.0/20','188.114.96.0/20','197.234.240.0/22','198.41.128.0/17','162.158.0.0/15','104.16.0.0/13','104.24.0.0/14','172.64.0.0/13','131.0.72.0/22'];
 let cached=null,loadedAt=0,pending=null;
 function num(ip){return ip.split('.').reduce((a,n)=>(a*256+Number(n))>>>0,0)}
-export function parseTelecom(text,now=Date.now()){
+function parseTelecom(text,now=Date.now()){
  const stamp=text.match(/^#.*scanned at (\d{4}-\d\d-\d\d \d\d:\d\d)/m)?.[1];
  if(!stamp)throw Error('上游没有可识别的更新时间');
  const sourceAt=new Date(stamp.replace(' ','T')+':00+08:00').toISOString();
